@@ -13,4 +13,8 @@ public class Variant {
     public String toString() {
         return "Rs. " + price;
     }
+    public String nameAndPriceString() {
+        return name + " - Rs. " + price;
+    }
+
 }

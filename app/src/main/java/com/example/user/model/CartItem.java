@@ -2,7 +2,7 @@ package com.example.user.model;
 
 public class CartItem {
         String name;
-        float qty;
+        public float qty;
         int price;
 
         public CartItem(String name, int price) {
@@ -16,4 +16,13 @@ public class CartItem {
             this.qty = qty;
             this.price = price;
         }
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "name='" + name + '\'' +
+                ", qty=" + qty +
+                ", price=" + price +
+                '}';
+    }
 }

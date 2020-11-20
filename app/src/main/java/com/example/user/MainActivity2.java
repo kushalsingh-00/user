@@ -51,6 +51,15 @@ public class MainActivity2 extends AppCompatActivity {
         );
     }
 
+    public void updateCartSummary(){
+        if(cart.noOfItems==0){
+            b.checkout.setVisibility(View.GONE);
+        } else {
+            b.checkout.setVisibility(View.VISIBLE);
+            b.summary.setText("Total : Rs. " + cart.subTotal + "\n" + cart.noOfItems + " items");
+        }
+    }
+
     public void cartSummary()
     {
         if(cart.noOfItems==0)

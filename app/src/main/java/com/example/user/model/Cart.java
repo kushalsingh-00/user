@@ -8,10 +8,10 @@ public class Cart {
     public int noOfItems;
 
     // all cart items present here
-    Map<String,CartItem> items=new HashMap<>();
+    public Map<String,CartItem> items=new HashMap<>();
 
     // varient type product total quantity
-    Map<String,Integer> varientQty=new HashMap<>();
+    public Map<String,Integer> varientQty=new HashMap<>();
 
 
     // Varient Based
@@ -120,6 +120,31 @@ public class Cart {
             items.remove(product.name);
         }
     }
+
+    public int getVariantQty(Product product, Variant variant){
+        String key = product.name + " " + variant.name;
+
+        if(items.containsKey(key))
+            return (int) items.get(key).qty;
+
+        return 0;
+    }
+
+    public void updateWBQuantity(Product product, float qty) {
+        //Calculate newPrice
+        int newPrice = (int) (product.pricePerKg * qty);
+
+        if(items.containsKey(product.name))
+            subTotal -= items.get(product.name).price;
+
+
+        else
+            noOfItems++;
+
+        items.put(product.name, new CartItem(product.name, qty,newPrice));
+        subTotal += newPrice;
+    }
+
 
     @Override
     public String toString() {
