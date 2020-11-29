@@ -9,7 +9,7 @@ public class Product implements Serializable {
 
     //Compulsory
     public String name;
-    public byte type;
+    public int type;
 
     //WeightBased
     public int pricePerKg;

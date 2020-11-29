@@ -1,8 +1,15 @@
 package com.example.user.model;
 
-public class Variant {
+import java.io.Serializable;
+
+public class Variant implements Serializable {
     public String name;
     public int price;
+
+    public Variant()
+    {
+
+    }
 
     public Variant(String name, int price) {
         this.name = name;

@@ -1,9 +1,10 @@
 package com.example.user.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart {
+public class Cart implements Serializable {
     public int subTotal;
     public int noOfItems;
 

@@ -1,9 +1,11 @@
 package com.example.user.model;
 
-public class CartItem {
-        String name;
+import java.io.Serializable;
+
+public class CartItem implements Serializable {
+        public String name;
         public float qty;
-        int price;
+        public int price;
 
         public CartItem(String name, int price) {
             this.name = name;

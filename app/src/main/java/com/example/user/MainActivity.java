@@ -8,18 +8,29 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.user.databinding.ActivityMainBinding;
+import com.example.user.model.Cart;
+import com.example.user.model.Product;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding b;
     private int kg;
     private int g;
+    private Cart cart;
+    private MyApp myApp;
+    private List<Product> products;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         b=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+
+        myApp=(MyApp) getApplicationContext();
 
         b.button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,17 +1,26 @@
 package com.example.user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.user.adapter.ProductAdapter;
 import com.example.user.databinding.ActivityMain2Binding;
 import com.example.user.model.Cart;
+import com.example.user.model.Inventory;
 import com.example.user.model.Product;
 import com.example.user.model.Variant;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +28,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     private ActivityMain2Binding b;
     private Cart cart = new Cart();
+    private List<Product> list;
+    private ProductAdapter adapter;
+    private MyApp myApp;
 
 
     @Override
@@ -26,30 +38,75 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         b=ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
-        settingUpListOfProduct();
+
+        myApp= (MyApp) getApplicationContext();
+        
+        load();
+
+        setupCheckout();
+    }
+
+    private void load() {
+        if(myApp.isOffline())
+        {
+            myApp.showToast(this,"It Seems Your App Is Ofline");
+            return;
+        }
+
+        myApp.showLoadingDialog(this);
+
+        myApp.db.collection("inventory").document("products")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists())
+                        {
+                            Inventory inventory=documentSnapshot.toObject(Inventory.class);
+                            list=inventory.products;
+                        }
+                        else
+                            list=new ArrayList<>();
+
+                        settingUpListOfProduct();
+                        myApp.hideLoadingDialog();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        myApp.hideLoadingDialog();
+                        myApp.showToast(MainActivity2.this, e.getMessage());
+                    }
+                });
+    }
+
+    private void setupCheckout() {
+        b.checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCartSummary();
+            }
+        });
+    }
+
+    private void openCartSummary() {
+        Intent intent=new Intent(MainActivity2.this,CartSummaryActivity.class);
+        intent.putExtra("Cart Items", cart);
+        startActivity(intent);
     }
 
     private void settingUpListOfProduct() {
-        List<Product> list=getProducts();
 
-        ProductAdapter adapter=new ProductAdapter(this,list,cart);
+        adapter=new ProductAdapter(this,list,cart);
         b.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        b.recyclerView.addItemDecoration(itemDecor);
+
         b.recyclerView.setAdapter(adapter);
     }
 
-    private List<Product> getProducts() {
-        return Arrays.asList(
-                new Product("Bread", Arrays.asList(
-                        new Variant("big", 10)
-                        , new Variant("small", 20)
-                        , new Variant("medium", 30)
-                ))
-                , new Product("Apple", 30, 1)
-                , new Product("Kiwi", Arrays.asList(
-                        new Variant("1kg", 100)
-                ))
-        );
-    }
 
     public void updateCartSummary(){
         if(cart.noOfItems==0){
