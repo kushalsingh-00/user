@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".MyApp">
+        <service
+            android:name=".service.MyFCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
         <activity android:name=".CartSummaryActivity"></activity>
         <activity android:name=".MainActivity2">
             <intent-filter>
@@ -19,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
+
     </application>
 
 </manifest>
