@@ -1,3 +1,3 @@
 # user
 
-## [Apk Release](https://github.com/kushalsingh-00/user/releases/download/v0.1/app-debug.apk)
+## [Apk Release](https://github.com/kushalsingh-00/user/releases/download/v1.0/app-debug.apk)
