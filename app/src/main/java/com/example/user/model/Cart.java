@@ -8,6 +8,7 @@ public class Cart implements Serializable {
     public int subTotal;
     public int noOfItems;
 
+    public Cart(){}
     // all cart items present here
     public Map<String,CartItem> items=new HashMap<>();
 
@@ -76,7 +77,7 @@ public class Cart implements Serializable {
     // removing all varients
     public void remmoveAllVarients(Product product)
     {
-        for (Variant variant:product.variants) {
+        for (Variant variant:product.varients) {
             String key=product.name+" "+variant.name;
 
             if(items.containsKey(key)) {
@@ -95,7 +96,7 @@ public class Cart implements Serializable {
     public void addToCartWB(Product product,float qty)
     {
         //calculating total price
-        int newPrice= (int) (product.pricePerKg*qty);
+        int newPrice= (int) (product.price *qty);
 
         //decreasing changed product price
         if(items.containsKey(product.name))
@@ -133,7 +134,7 @@ public class Cart implements Serializable {
 
     public void updateWBQuantity(Product product, float qty) {
         //Calculate newPrice
-        int newPrice = (int) (product.pricePerKg * qty);
+        int newPrice = (int) (product.price * qty);
 
         if(items.containsKey(product.name))
             subTotal -= items.get(product.name).price;

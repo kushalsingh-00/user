@@ -19,7 +19,7 @@ public class SingleVBBinder {
         b.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cart.addToCart(product,product.variants.get(0));
+                cart.addToCart(product,product.varients.get(0));
                 updateViews(1);
 
             }
@@ -28,7 +28,7 @@ public class SingleVBBinder {
         b.incrementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i=cart.addToCart(product,product.variants.get(0));
+                int i=cart.addToCart(product,product.varients.get(0));
                 updateViews(i);
             }
         });
@@ -36,7 +36,7 @@ public class SingleVBBinder {
         b.decrementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i=cart.removeFromCart(product,product.variants.get(0));
+                int i=cart.removeFromCart(product,product.varients.get(0));
                 updateViews(i);
             }
         });
@@ -58,10 +58,10 @@ public class SingleVBBinder {
 
         b.quantity.setText(i+"");
 
-        updateUmmary();
+        updateSUmmary();
     }
 
-    private void updateUmmary() {
+    private void updateSUmmary() {
         Context context=b.getRoot().getContext();
         if(context instanceof MainActivity2)
         {

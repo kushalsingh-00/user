@@ -73,7 +73,7 @@ public class WeightPickerDialog {
         // Define this method to setup kg & g NumberPickers as per the given ranges
         //kg Range - 0kg to 10kg
         //g Range - 0g to 950g
-        float quantity = product.minQty;
+        float quantity = product.qty;
         b.numberPickerKg.setMinValue((int) (quantity));
         b.numberPickerKg.setMaxValue(10);
         b.numberPickerG.setMinValue(((int) (quantity % 1000)) / 50);

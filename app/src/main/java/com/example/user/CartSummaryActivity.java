@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class CartSummaryActivity extends AppCompatActivity {
     private ActivityCartSummaryBinding b;
-    private ItemsViewBinding b1;
+//    private ItemsViewBinding b1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +32,13 @@ public class CartSummaryActivity extends AppCompatActivity {
     }
 
     private void displayingValuesInView(Cart c) {
-        b1=ItemsViewBinding.inflate(getLayoutInflater());
         Map<String, CartItem> items=c.items;
 
         Iterator<String> i=items.keySet().iterator();
 
         while(i.hasNext())
         {
+            ItemsViewBinding b1=ItemsViewBinding.inflate(getLayoutInflater());
             String k=i.next();
             b1.productName.setText(items.get(k).name);
             b1.productQtyAndPrice.setText(items.get(k).qty+" kg * Rs. "+items.get(k).price+"/kg");

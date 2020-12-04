@@ -55,7 +55,7 @@ public class VarientPickerDialog {
     }
 
     private void showVariants() {
-        for(Variant variant : product.variants){
+        for(Variant variant : product.varients){
             //Inflate
             VarientItemBinding ib = VarientItemBinding.inflate(
                     LayoutInflater.from(context)

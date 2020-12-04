@@ -2,7 +2,6 @@ package com.example.user.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import com.example.user.databinding.WbMultivarientProductLayoutBinding;
 import com.example.user.model.Cart;
 import com.example.user.model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -36,7 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //getting product for specific position
         Product product=products.get(position);
         // checking for type and size
-        if(Product.WEIGHT_BASED==product.type||product.variants.size()>1)
+        if(Product.WEIGHT_BASED==product.type||product.varients.size()>1)
             return TYPE_WB_OR_MULTIPLE_VB;
 
         return TYPE_SINGLE_VB;
@@ -74,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if(getItemViewType(position)==TYPE_SINGLE_VB)
         {
             SingleVBViewBinder singleVBViewBinder=(SingleVBViewBinder) holder;
-            singleVBViewBinder.b.name.setText(product.name+" "+product.variants.get(0).name);
+            singleVBViewBinder.b.name.setText(product.name+" "+product.varients.get(0).name);
             singleVBViewBinder.b.price.setText(product.priceString());
 
             new SingleVBBinder().bind(singleVBViewBinder.b,product,cart);

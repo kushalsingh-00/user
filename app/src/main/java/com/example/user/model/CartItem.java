@@ -7,6 +7,7 @@ public class CartItem implements Serializable {
         public float qty;
         public int price;
 
+        public CartItem(){}
         public CartItem(String name, int price) {
             this.name = name;
             this.price = price;

@@ -1,7 +1,6 @@
 package com.example.user.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Serializable {
@@ -12,13 +11,13 @@ public class Product implements Serializable {
     public int type;
 
     //WeightBased
-    public int pricePerKg;
-    public float minQty;
+    public int price;
+    public float qty;
 
     //OR
 
     //VariantsBased
-    public List<Variant> variants;
+    public List<Variant> varients;
 
     public Product() {
 
@@ -83,14 +82,14 @@ public class Product implements Serializable {
         return "Product{" +
                 "name='" + name + '\'' +
                 ", type=" + type +
-                ", pricePerKg=" + pricePerKg +
-                ", minQty=" + minQty +
-                ", variants=" + variants +
+                ", pricePerKg=" + price +
+                ", minQty=" + qty +
+                ", variants=" + varients +
                 '}';
     }
 
     public String variantsString(){
-        String variantsString = variants.toString();
+        String variantsString = varients.toString();
         return variantsString
                 .replaceFirst("\\[", "")
                 .replaceFirst("]", "")
@@ -100,7 +99,7 @@ public class Product implements Serializable {
     public String priceString()
     {
         if(type==Product.WEIGHT_BASED)
-            return "Rs. "+pricePerKg+"/kg";
+            return "Rs. "+ price +"/kg";
 
         return variantsString();
     }
